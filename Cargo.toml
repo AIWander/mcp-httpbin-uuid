@@ -1,13 +1,13 @@
 [package]
-name = "${API_NAME_UNDERSCORE}"
+name = "httpbin_uuid"
 version = "0.1.0"
 edition = "2021"
-description = "${API_DESCRIPTION}"
+description = "Smoke test — returns a UUID v4. Safe to delete."
 license = "MIT"
-repository = "https://github.com/AIWander/mcp-${API_NAME_DASH}"
+repository = "https://github.com/AIWander/mcp-httpbin-uuid"
 
 [[bin]]
-name = "${API_NAME_DASH}"
+name = "httpbin-uuid"
 path = "src/main.rs"
 
 [dependencies]

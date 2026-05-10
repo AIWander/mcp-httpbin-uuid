@@ -1,4 +1,4 @@
-//! ${API_NAME} â€” graduated MCP server from a workflow-stored API pattern
+//! httpbin_uuid â€” graduated MCP server from a workflow-stored API pattern
 //!
 //! Generated from workflow:api_graduate. Single tool, statically wired
 //! to one upstream HTTP API. Credentials read from environment at call time
@@ -18,13 +18,13 @@ use serde::{Deserialize, Serialize};
 // â”€â”€â”€ PATTERN-DERIVED CONSTANTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Filled in by workflow:api_graduate at scaffold time.
 
-const API_NAME: &str = "${API_NAME}";
-const API_DESCRIPTION: &str = "${API_DESCRIPTION}";
-const URL_PATTERN: &str = "${URL_PATTERN}";
-const METHOD: &str = "${METHOD}";
-const CRED_ENV_VAR: &str = "${CRED_ENV_VAR_NAME}"; // empty string = no auth required
-const CRED_HEADER: &str = "${CRED_HEADER}";
-const CRED_PREFIX: &str = "${CRED_PREFIX}";
+const API_NAME: &str = "httpbin_uuid";
+const API_DESCRIPTION: &str = "Smoke test — returns a UUID v4. Safe to delete.";
+const URL_PATTERN: &str = "https://httpbin.org/uuid";
+const METHOD: &str = "GET";
+const CRED_ENV_VAR: &str = ""; // empty string = no auth required
+const CRED_HEADER: &str = "";
+const CRED_PREFIX: &str = "";
 
 // â”€â”€â”€ INPUT SCHEMA (derived from URL placeholders + body template) â”€â”€â”€â”€
 // schemars generates the JSON schema; rmcp surfaces it via list_tools.
@@ -32,7 +32,7 @@ const CRED_PREFIX: &str = "${CRED_PREFIX}";
 #[derive(Debug, Clone, Serialize, Deserialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct CallArgs {
-    ${INPUT_FIELDS}
+    
 }
 
 // â”€â”€â”€ HANDLER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -59,7 +59,7 @@ impl ApiTool {
         }
     }
 
-    #[tool(name = "${API_NAME}", description = "${API_DESCRIPTION}")]
+    #[tool(name = "httpbin_uuid", description = "Smoke test — returns a UUID v4. Safe to delete.")]
     pub async fn call_tool(
         &self,
         params: Parameters<CallArgs>,
@@ -67,7 +67,7 @@ impl ApiTool {
         let args = params.0;
 
         // Build URL by substituting placeholders from args.
-        let url = ${URL_BUILDER_EXPR};
+        let url = "https://httpbin.org/uuid".to_string();
 
         // Build request.
         let mut req = self.http.request(
@@ -87,7 +87,7 @@ impl ApiTool {
         }
 
         // (body-builder: generated only if the API has a body template)
-        ${BODY_BUILDER}
+        
 
         // Dispatch and pass through.
         let resp = req.send().await.map_err(|e| {
